@@ -31,17 +31,15 @@ public partial class DonsDuSangContext : DbContext
     {
         modelBuilder.Entity<Donneur>(entity =>
         {
-            entity.HasKey(e => e.IdDonneur).HasName("PK__Donneur__82A042839C591B87");
+            entity.HasKey(e => e.IdDonneur).HasName("PK__Donneur__82A042836721BA74");
 
             entity.ToTable("Donneur");
 
-            entity.HasIndex(e => e.DateNaissance, "UQ__Donneur__06656525C5D9B4B8").IsUnique();
+            entity.HasIndex(e => e.DateNaissance, "UQ__Donneur__06656525EA811136").IsUnique();
 
-            entity.HasIndex(e => e.Email, "UQ__Donneur__AB6E61640E2035F9").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Donneur__AB6E61643BD61C25").IsUnique();
 
-            entity.Property(e => e.IdDonneur)
-                .ValueGeneratedNever()
-                .HasColumnName("idDonneur");
+            entity.Property(e => e.IdDonneur).HasColumnName("idDonneur");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -62,13 +60,11 @@ public partial class DonsDuSangContext : DbContext
 
         modelBuilder.Entity<Question>(entity =>
         {
-            entity.HasKey(e => e.IdQuestion).HasName("PK__Question__1196F465C80BD65D");
+            entity.HasKey(e => e.IdQuestion).HasName("PK__Question__1196F46523F17899");
 
             entity.ToTable("Question");
 
-            entity.Property(e => e.IdQuestion)
-                .ValueGeneratedNever()
-                .HasColumnName("idQuestion");
+            entity.Property(e => e.IdQuestion).HasColumnName("idQuestion");
             entity.Property(e => e.Categorie)
                 .HasMaxLength(100)
                 .IsUnicode(false);
@@ -80,13 +76,11 @@ public partial class DonsDuSangContext : DbContext
 
         modelBuilder.Entity<Questionnaire>(entity =>
         {
-            entity.HasKey(e => e.IdQuestionnaire).HasName("PK__Question__609470D245F98FAD");
+            entity.HasKey(e => e.IdQuestionnaire).HasName("PK__Question__609470D2ACB40E3C");
 
             entity.ToTable("Questionnaire");
 
-            entity.Property(e => e.IdQuestionnaire)
-                .ValueGeneratedNever()
-                .HasColumnName("idQuestionnaire");
+            entity.Property(e => e.IdQuestionnaire).HasColumnName("idQuestionnaire");
             entity.Property(e => e.IdDonneur).HasColumnName("idDonneur");
 
             entity.HasOne(d => d.IdDonneurNavigation).WithMany(p => p.Questionnaires)
@@ -97,13 +91,11 @@ public partial class DonsDuSangContext : DbContext
 
         modelBuilder.Entity<Reponse>(entity =>
         {
-            entity.HasKey(e => e.IdReponse).HasName("PK__Reponse__41D6459EAFCFB9DB");
+            entity.HasKey(e => e.IdReponse).HasName("PK__Reponse__41D6459EA57181E2");
 
             entity.ToTable("Reponse");
 
-            entity.Property(e => e.IdReponse)
-                .ValueGeneratedNever()
-                .HasColumnName("idReponse");
+            entity.Property(e => e.IdReponse).HasColumnName("idReponse");
             entity.Property(e => e.ComplementTextuel)
                 .HasMaxLength(200)
                 .IsUnicode(false);

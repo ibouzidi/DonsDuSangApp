@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="DonsDuSangApp.Views.AccueilPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:DonsDuSangApp"
+    xmlns:helpers="clr-namespace:DonsDuSangApp.Helpers"
+    xmlns:vm="clr-namespace:DonsDuSangApp.ViewModels"
+    xmlns:m="clr-namespace:DonsDuSangApp.Context.Models;assembly=DonsDuSangApp.Context"
+    Padding="{OnPlatform iOS={StaticResource ApplePadding}, Default={StaticResource DefaultPadding}}"
+    Title="{Binding Title}"
+    x:DataType="vm:AccueilViewModel"
+    mc:Ignorable="d"
+    BackgroundImageSource="{AppThemeBinding Light=lightback.jpg, Dark=darkback.jpg}">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,*">
+
+            <!-- Title Section -->
+            <Border Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="Start" Padding="20" Margin="0,20,0,0" StrokeShape="RoundRectangle 40,0,0,40" BackgroundColor="#40000000">
+                <Label Text="Bienvenue à l'application Don du Sang" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="20" />
+            </Border>
+
+            <!-- Donor Section -->
+            <StackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
+                <Border StrokeShape="RoundRectangle 40,0,0,40">
+                    <Image Source="donneur.jpg" MaximumHeightRequest="150" />
+                </Border>
+                <Label Text="Section Donneurs" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold" VerticalOptions="End" />
+                <Button Text="Accéder au questionnaire" HorizontalOptions="Center" Padding="25" Margin="20"
+                        Command="{Binding AccesQuestionnaireCommand}" 
+                        Style="{StaticResource PrimaryAction}">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.FormTextboxPassword}" Size="26" />
+                    </Button.ImageSource>
+                </Button>
+            </StackLayout>
+
+            <!-- Doctor Section -->
+            <StackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
+                <Border StrokeShape="RoundRectangle 40,0,0,40">
+                    <Image Source="docteur.jpg" MaximumHeightRequest="150" />
+                </Border>
+                <Label Text="Section Docteurs" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold" VerticalOptions="End" />
+                <Button Text="Accéder à l'administration" HorizontalOptions="Center" Padding="25" Margin="20"
+                       Style="{StaticResource SecondaryAction}">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.AccountBadge}" Size="26" />
+                    </Button.ImageSource>
+                </Button>
+            </StackLayout>
+
+            <!-- Footer -->
+            <Label Grid.Row="2" Grid.ColumnSpan="2" Text="Appli développée par Idris, Benoît, Antoine (2024)." HorizontalOptions="Center"
+                   VerticalOptions="End" FontAttributes="Bold" CharacterSpacing="2" HorizontalTextAlignment="Center"
+                   TextColor="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource Gray900}}" Margin="0,0,0,10" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

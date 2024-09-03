@@ -11,6 +11,8 @@ public partial class Reponse
 
     public string? ComplementTextuel { get; set; }
 
+    public bool? EstDisqualifié { get; set; }
+
     public short IdDonneur { get; set; }
 
     public short IdQuestion { get; set; }
