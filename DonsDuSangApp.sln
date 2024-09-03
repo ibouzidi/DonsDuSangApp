@@ -10,7 +10,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		DonsDuSangApp\Directory.Packages.props = DonsDuSangApp\Directory.Packages.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonsDuSangApp.Context", "DonsDuSangApp.Context\DonsDuSangApp.Context.csproj", "{42022625-3E2D-406C-851F-BA832F3A4B8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DonsDuSangApp.Context", "DonsDuSangApp.Context\DonsDuSangApp.Context.csproj", "{42022625-3E2D-406C-851F-BA832F3A4B8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "Éléments de solution", "{8DB6679A-BE7C-42F3-9090-27962DC3C9F1}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,7 +38,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		        SolutionGuid = {536A8828-2B57-45C4-8836-E616E6E650D3}
 		SolutionGuid = {CCA1FBF5-DEE2-4992-A529-688E8D770605}
+		        SolutionGuid = {536A8828-2B57-45C4-8836-E616E6E650D3}
 	EndGlobalSection
 EndGlobal
