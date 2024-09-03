@@ -1,12 +1,14 @@
-﻿namespace DonsDuSangApp.Views
+﻿
+public partial class LoginPage : ContentPage
 {
-    public partial class LoginPage : ContentPage
+    public LoginPage(LoginViewModel viewModel)
     {
-        public LoginPage(LoginViewModel viewModel)
-        {
-            InitializeComponent();
-            viewModel.Title = "Login";
-            BindingContext = viewModel;
-        }
+        InitializeComponent();
+        BindingContext = viewModel;
+    }
+
+    private void InitializeComponent()
+    {
+        throw new NotImplementedException();
     }
 }
