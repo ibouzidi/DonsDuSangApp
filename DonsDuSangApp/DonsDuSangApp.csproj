@@ -54,6 +54,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.*" Condition="'$(Configuration)' == 'Debug'" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
@@ -77,5 +78,9 @@
       <MauiXaml Update="Views\QuestionnairePage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models\" />
     </ItemGroup>
 </Project>

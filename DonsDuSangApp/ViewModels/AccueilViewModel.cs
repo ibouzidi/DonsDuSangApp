@@ -1,13 +1,12 @@
 ﻿namespace DonsDuSangApp.ViewModels
 {
     public partial class AccueilViewModel(IDialogService dialogService, INavigationService navigationService)
-        : BaseViewModel(dialogService, navigationService)
+            : BaseViewModel(dialogService, navigationService)
     {
 
         [RelayCommand]
         private async Task AccesQuestionnaireAsync()
         {
-
             // Check if the user is authenticated
             if (Preferences.Get("IsUserAuthenticated", false))
             {

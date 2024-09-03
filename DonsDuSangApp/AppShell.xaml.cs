@@ -2,16 +2,17 @@
 {
     public partial class AppShell : Shell
     {
-        public AppShell()
+        private readonly INavigationService _navigationService;
+
+        public AppShell(INavigationService navigationService)
         {
             InitializeComponent();
+            _navigationService = navigationService;
             RegisterRoutes();
-            SetInitialRoute();
         }
 
         private void RegisterRoutes()
         {
-            Routing.RegisterRoute(nameof(NewEventPage), typeof(NewEventPage));
             Routing.RegisterRoute(nameof(DonneurRegistrationPage), typeof(DonneurRegistrationPage));
             Routing.RegisterRoute(nameof(QuestionnairePage), typeof(QuestionnairePage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
@@ -22,11 +23,11 @@
         {
             if (IsUserAuthenticated())
             {
-                GoToAsync("//QuestionnairePage");
+                _navigationService.GoToAsync("//QuestionnairePage");
             }
             else
             {
-                GoToAsync("//AccueilPage");
+                _navigationService.GoToAsync("//AccueilPage");
             }
         }
 
@@ -38,7 +39,8 @@
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
             Preferences.Set("IsUserAuthenticated", false); // Handle logout
-            await GoToAsync("//login");
+            await _navigationService.GoToAsync(nameof(LoginPage)); // Clear navigation stack
         }
     }
+
 }

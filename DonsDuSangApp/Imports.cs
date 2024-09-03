@@ -11,7 +11,7 @@ global using CommunityToolkit.Mvvm.Messaging;
 
 global using DonsDuSangApp;
 global using DonsDuSangApp.Controls;
-global using DonsDuSangApp.Models;
+//global using DonsDuSangApp.Models;
 global using DonsDuSangApp.Services;
 global using DonsDuSangApp.ViewModels;
 global using DonsDuSangApp.Views;

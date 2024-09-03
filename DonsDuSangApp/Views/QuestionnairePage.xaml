@@ -5,18 +5,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:vm="clr-namespace:DonsDuSangApp.ViewModels"
-    xmlns:local="clr-namespace:DonsDuSangApp.Views"
-    x:DataType="vm:QuestionnaireViewModel"
     mc:Ignorable="d">
 
     <ContentPage.Content>
-        <StackLayout>
-            <Label
-                HorizontalOptions="Center"
-                Text="Welcome to .NET MAUI!!!"
-                TextColor="Purple"
-                VerticalOptions="Center"/>
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Padding="20">
+                <ListView ItemsSource="{Binding Questions}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Spacing="10">
+                                    <Label Text="{Binding Enonce}" FontSize="Medium" />
+                                    <Picker Title="Select a response" ItemsSource="{Binding ReponseOptions}" SelectedItem="{Binding SelectedReponse}" />
+                                    <Entry Placeholder="Add complementary text if needed" Text="{Binding ComplementTextuel}" IsVisible="{Binding IsCritique}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Text="Submit" Command="{Binding SubmitCommand}" VerticalOptions="End" />
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

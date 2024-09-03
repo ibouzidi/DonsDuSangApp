@@ -27,34 +27,10 @@
         And ensure appropriate page definitions are available for it work as expected
     -->
     <FlyoutItem Title="Accueil">
-        <ShellContent
-            ContentTemplate="{DataTemplate vw:AccueilPage}"
-            Route="AccueilPage2" />
+        <ShellContent ContentTemplate="{DataTemplate vw:AccueilPage}" Route="AccueilPage2" />
     </FlyoutItem>
-    <MenuItem
-        Clicked="OnMenuItemClicked"
-        Text="Logout" />
 
-    <TabBar>
-        <ShellContent
-            ContentTemplate="{DataTemplate vw:LoginPage}"
-            Route="login" />
-    </TabBar>
-    <FlyoutItem Title="Calendar">
-        <ShellContent
-            ContentTemplate="{DataTemplate vw:EventsPage}"
-            Route="home" />
-    </FlyoutItem>
-    <FlyoutItem Title="Search">
-        <ShellContent
-            ContentTemplate="{DataTemplate vw:SearchPage}"
-            Route="search" />
-    </FlyoutItem>
-    <FlyoutItem Title="Settings">
-        <ShellContent
-            ContentTemplate="{DataTemplate vw:SettingsPage}"
-            Route="settings" />
-    </FlyoutItem>
+    <MenuItem Text="Logout" Clicked="OnMenuItemClicked" />
 
 
 </Shell>

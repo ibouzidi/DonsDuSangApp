@@ -29,13 +29,15 @@ namespace DonsDuSangApp.ViewModels
                 return;
             }
 
-            // Mark the user as authenticated
+            // Mark the user as authenticated and store the donor ID
             Preferences.Set("IsUserAuthenticated", true);
+            Preferences.Set("LoggedInDonorId", existingDonneur.IdDonneur); // Storing the logged-in donor's ID
 
             await DialogService.DisplayAlertAsync("Succès", "Connexion réussie.", "OK");
 
-            // Navigate to the Questionnaire page
+            // Clear the stack and navigate to the Questionnaire page
             await NavigationService.GoToAsync(nameof(QuestionnairePage));
         }
+
     }
 }
