@@ -1,8 +1,23 @@
 ﻿namespace DonsDuSangApp.ViewModels
 {
-    public partial class AccueilViewModel(IDialogService dialogService, INavigationService navigationService)
-            : BaseViewModel(dialogService, navigationService)
+    public partial class AccueilViewModel : BaseViewModel
     {
+        [ObservableProperty]
+        private int nombre;
+
+        public AccueilViewModel(IDialogService dialogService, INavigationService navigationService)
+            : base(dialogService, navigationService)
+        {
+            // Initialize Nombre with a default value or fetch it from a service
+            LoadNombreAsync();
+        }
+
+        private async Task LoadNombreAsync()
+        {
+            // Simulate fetching the number of donors from a data source
+            // Replace this with your actual data-fetching logic
+            Nombre = await Task.FromResult(1234); // Example value, replace with actual logic
+        }
 
         [RelayCommand]
         private async Task AccesQuestionnaireAsync()

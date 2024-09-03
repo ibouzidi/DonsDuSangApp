@@ -58,7 +58,7 @@
                    TargetType="Button"
                    BasedOn="{StaticResource Action}">
                 <Setter Property="BackgroundColor"
-                        Value="{StaticResource Primary}" />
+                        Value="{StaticResource Secondary}" />
                 <Setter Property="FontAttributes"
                         Value="Bold" />
                 <Setter Property="TextColor"
