@@ -40,4 +40,20 @@ public partial class Donneur
         }
     }
 
+    public class DonneurService
+    {
+        public bool EstMajeur(Donneur donneur)
+        {
+            if (donneur.DateNaissance.HasValue)
+            {
+                var today = DateTime.Today;
+                var birthDate = donneur.DateNaissance.Value.ToDateTime(new TimeOnly(0, 0));
+                var age = today.Year - birthDate.Year;
+                if (birthDate > today.AddYears(-age)) age--;
+                return age >= 18;
+            }
+            return false;
+        }
+    }
+
 }
