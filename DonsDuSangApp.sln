@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "�
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonsDusangApp.TESTS", "DonsDusangApp.TESTS\DonsDusangApp.TESTS.csproj", "{35DFA0D9-1EFE-440C-B362-C0FF351620AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,12 +35,16 @@ Global
 		{42022625-3E2D-406C-851F-BA832F3A4B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42022625-3E2D-406C-851F-BA832F3A4B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42022625-3E2D-406C-851F-BA832F3A4B8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35DFA0D9-1EFE-440C-B362-C0FF351620AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35DFA0D9-1EFE-440C-B362-C0FF351620AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35DFA0D9-1EFE-440C-B362-C0FF351620AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35DFA0D9-1EFE-440C-B362-C0FF351620AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {CCA1FBF5-DEE2-4992-A529-688E8D770605}
 		        SolutionGuid = {536A8828-2B57-45C4-8836-E616E6E650D3}
+		SolutionGuid = {CCA1FBF5-DEE2-4992-A529-688E8D770605}
 	EndGlobalSection
 EndGlobal

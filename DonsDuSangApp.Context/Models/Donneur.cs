@@ -20,4 +20,24 @@ public partial class Donneur
     public virtual ICollection<Questionnaire> Questionnaires { get; set; } = new List<Questionnaire>();
 
     public virtual ICollection<Reponse> Reponses { get; set; } = new List<Reponse>();
+
+    public class AuthService
+    {
+        private readonly List<Donneur> _donneurs;
+
+        public AuthService(List<Donneur> donneurs)
+        {
+            _donneurs = donneurs;
+        }
+
+        public bool SeConnecter(string email, string motDePasse)
+        {
+            var donneur = _donneurs.FirstOrDefault(d => d.Email == email);
+            if (donneur == null) return false;
+
+            // Pour des raisons de sécurité, il est recommandé de hasher le mot de passe et de le comparer avec celui stocké en base
+            return donneur.Motdepasse == motDePasse;
+        }
+    }
+
 }
