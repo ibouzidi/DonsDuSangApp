@@ -17,14 +17,4 @@ public partial class Questionnaire
 
     public virtual Donneur IdDonneurNavigation { get; set; } = null!;
 
-
-    // Ajoutez cette méthode pour vérifier si un questionnaire est terminé
-    public bool EstTermine()
-    {
-        // Le questionnaire est considéré comme terminé si les deux propriétés sont renseignées
-        // et qu'il y a au moins une réponse associée.
-        return AccordEnseignement.HasValue && AccordNonTherapeutique.HasValue;
-    }
-
-
 }
