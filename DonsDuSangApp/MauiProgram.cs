@@ -46,6 +46,9 @@ namespace DonsDuSangApp
             builder.Services.AddTransient<StatistiquesViewModel>();
             builder.Services.AddTransient<StatistiquesPage>();
 
+            builder.Services.AddTransient<ConsentementViewModel>();
+            builder.Services.AddTransient<ConsentementPage>();
+
 
 
 #if DEBUG

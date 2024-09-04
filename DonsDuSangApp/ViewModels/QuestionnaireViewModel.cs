@@ -1,5 +1,6 @@
 ﻿using DonsDuSangApp.Context.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 
 namespace DonsDuSangApp.ViewModels
@@ -90,8 +91,6 @@ namespace DonsDuSangApp.ViewModels
         }
 
 
-
-
         [RelayCommand]
         public async Task SubmitAsync()
         {
@@ -99,13 +98,48 @@ namespace DonsDuSangApp.ViewModels
             {
                 var loggedInDonorId = (short)Preferences.Get("LoggedInDonorId", 0);
 
+                // Determine feasibility of donation based on critical answers
+                bool isDisqualified = false;
+                bool needsInterview = false;
+
                 foreach (var questionVm in Questions)
                 {
                     await questionVm.SaveResponseAsync(loggedInDonorId);
+
+                    // Check for disqualifying responses
+                    if (questionVm.IsCritique && questionVm.SelectedReponse == "Non")
+                    {
+                        isDisqualified = true;
+                        break;
+                    }
+
+                    // If the question needs an interview based on the answer
+                    if (questionVm.SelectedReponse == "Je ne sais pas")
+                    {
+                        needsInterview = true;
+                    }
                 }
 
-                await DialogService.DisplayAlertAsync("Succès", "Questionnaire soumis avec succès.", "OK");
-                await NavigationService.GoToAsync(nameof(AccueilPage));
+                // Determine final message
+                string donationMessage;
+                if (isDisqualified)
+                {
+                    donationMessage = "Don impossible";
+                }
+                else if (needsInterview)
+                {
+                    donationMessage = "Dépend de l'entretien";
+                }
+                else
+                {
+                    donationMessage = "Don faisable";
+                }
+
+                // Show the donation feasibility message
+                await DialogService.DisplayAlertAsync("Résultat", donationMessage, "OK");
+
+                // Navigate to the consent page after feasibility check
+                await NavigationService.GoToAsync(nameof(ConsentementPage));
             }
             catch (Exception ex)
             {

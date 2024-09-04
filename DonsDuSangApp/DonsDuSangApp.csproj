@@ -72,6 +72,9 @@
       <MauiXaml Update="Views\AccueilPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
+      <MauiXaml Update="Views\ConsentementPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
       <MauiXaml Update="Views\DonneurDetailPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
