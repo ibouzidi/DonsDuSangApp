@@ -25,17 +25,17 @@ public partial class DonsDuSangContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=LAP-ETC41PR\\SQLEXPRESS;Database=DonsDuSang;Integrated Security=SSPI;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=Antoine\\SQLEXPRESS;Database=DonsDuSang;Integrated Security=SSPI;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Donneur>(entity =>
         {
-            entity.HasKey(e => e.IdDonneur).HasName("PK__Donneur__82A042836721BA74");
+            entity.HasKey(e => e.IdDonneur).HasName("PK__Donneur__82A0428343BE9781");
 
             entity.ToTable("Donneur");
 
-            entity.HasIndex(e => e.Email, "UQ__Donneur__AB6E61643BD61C25").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Donneur__AB6E61649C20573E").IsUnique();
 
             entity.Property(e => e.IdDonneur).HasColumnName("idDonneur");
             entity.Property(e => e.Email)
@@ -58,7 +58,7 @@ public partial class DonsDuSangContext : DbContext
 
         modelBuilder.Entity<Question>(entity =>
         {
-            entity.HasKey(e => e.IdQuestion).HasName("PK__Question__1196F46523F17899");
+            entity.HasKey(e => e.IdQuestion).HasName("PK__Question__1196F465EB86000D");
 
             entity.ToTable("Question");
 
@@ -74,7 +74,7 @@ public partial class DonsDuSangContext : DbContext
 
         modelBuilder.Entity<Questionnaire>(entity =>
         {
-            entity.HasKey(e => e.IdQuestionnaire).HasName("PK__Question__609470D2ACB40E3C");
+            entity.HasKey(e => e.IdQuestionnaire).HasName("PK__Question__609470D2B342B905");
 
             entity.ToTable("Questionnaire");
 
@@ -89,7 +89,7 @@ public partial class DonsDuSangContext : DbContext
 
         modelBuilder.Entity<Reponse>(entity =>
         {
-            entity.HasKey(e => e.IdReponse).HasName("PK__Reponse__41D6459EA57181E2");
+            entity.HasKey(e => e.IdReponse).HasName("PK__Reponse__41D6459E92437D1E");
 
             entity.ToTable("Reponse");
 

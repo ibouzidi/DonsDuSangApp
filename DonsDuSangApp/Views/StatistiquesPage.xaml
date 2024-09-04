@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="DonsDuSangApp.Views.StatistiquesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:DonsDuSangApp"
+    xmlns:helpers="clr-namespace:DonsDuSangApp.Helpers"
+    xmlns:vm="clr-namespace:DonsDuSangApp.ViewModels"
+    xmlns:m="clr-namespace:DonsDuSangApp.Context.Models;assembly=DonsDuSangApp.Context"
+    Padding="{OnPlatform iOS={StaticResource ApplePadding}, Default={StaticResource DefaultPadding}}"
+    Title="{Binding Title}"
+    x:DataType="vm:StatistiquesViewModel"
+    mc:Ignorable="d"
+    BackgroundImageSource="{AppThemeBinding Light=lightback.jpg, Dark=darkback.jpg}">
+
+    <ContentPage.Content>
+        <ListView ItemsSource="{Binding QuestionsStats}">
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal" Padding="10">
+                    <Label Text="Question" FontAttributes="Bold" />
+                    <Label Text="Pourcentage de Oui" FontAttributes="Bold" HorizontalOptions="EndAndExpand" />
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <!-- Bind to the correct ViewModel class: QuestionStatistique -->
+                <DataTemplate x:DataType="vm:QuestionStatistique">
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <!-- Binding to properties of QuestionStatistique -->
+                            <Label Text="{Binding Enonce}" />
+                            <Label Text="{Binding PourcentageOui, StringFormat='{0:F2}%'}" HorizontalOptions="EndAndExpand" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

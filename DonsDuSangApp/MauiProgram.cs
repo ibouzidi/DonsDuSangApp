@@ -34,6 +34,9 @@ namespace DonsDuSangApp
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<LoginPage>();
 
+            builder.Services.AddTransient<StatistiquesViewModel>();
+            builder.Services.AddTransient<StatistiquesPage>();
+
 
 #if DEBUG
             builder.Logging.AddDebug();

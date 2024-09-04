@@ -11,7 +11,7 @@ public partial class Donneur
 
     public string? Prenom { get; set; }
 
-    public DateOnly? DateNaissance { get; set; }
+    public DateTime? DateNaissance { get; set; }
 
     public string? Email { get; set; }
 

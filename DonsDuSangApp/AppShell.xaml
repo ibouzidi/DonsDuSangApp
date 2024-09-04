@@ -29,7 +29,9 @@
     <FlyoutItem Title="Accueil">
         <ShellContent ContentTemplate="{DataTemplate vw:AccueilPage}" Route="AccueilPage2" />
     </FlyoutItem>
-
+    <FlyoutItem Title="Statistiques">
+        <ShellContent ContentTemplate="{DataTemplate vw:StatistiquesPage}" Route="Statistiques" />
+    </FlyoutItem>
     <MenuItem Text="Logout" Clicked="OnMenuItemClicked" />
 
 
