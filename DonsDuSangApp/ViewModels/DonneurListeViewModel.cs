@@ -38,6 +38,12 @@ namespace DonsDuSangApp.ViewModels
         {
             await NavigationService.GoToAsync(nameof(StatistiquesPage));
         }
+
+        [RelayCommand]
+        private async Task ViewSearchDonneurAsync()
+        {
+            await NavigationService.GoToAsync(nameof(DonneurSearchPage));
+        }
     }
 
 

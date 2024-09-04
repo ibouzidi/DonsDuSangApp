@@ -15,5 +15,7 @@ public partial class Questionnaire
 
     public short IdDonneur { get; set; }
 
+    public bool? BesoinEntretient { get; set; }
+
     public virtual Donneur IdDonneurNavigation { get; set; } = null!;
 }

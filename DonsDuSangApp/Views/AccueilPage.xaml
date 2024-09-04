@@ -20,7 +20,7 @@
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,Auto,*,Auto" ColumnDefinitions="*,*">
 
-            <Border Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="Center" Padding="0,20,0,0" Margin="0,50,0,0" 
+            <Border Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="Center" Padding="0,20,0,0" Margin="0,50,0,0"
                 StrokeShape="RoundRectangle 40,40,40,40" BackgroundColor="{StaticResource Secondary}"
                 WidthRequest="400" HeightRequest="75">
                 <Label Text="Bienvenue à l'application Don du Sang" HorizontalOptions="Center" 

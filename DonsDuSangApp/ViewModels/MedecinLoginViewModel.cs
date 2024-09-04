@@ -7,7 +7,7 @@ namespace DonsDuSangApp.ViewModels
     public partial class MedecinLoginViewModel(IDialogService dialogService, INavigationService navigationService)
             : BaseViewModel(dialogService, navigationService)
     {
-        private const string HardcodedPassword = "medecinpassword"; // Hardcoded shared password
+        private const string HardcodedPassword = "123"; // Hardcoded shared password
 
         [ObservableProperty]
         private string _password;

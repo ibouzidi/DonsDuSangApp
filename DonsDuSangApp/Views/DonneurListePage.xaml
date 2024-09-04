@@ -23,10 +23,16 @@
 
     <ContentPage.Content>
         <StackLayout>
+
             <Button Text="Voir Statistiques"
                     Command="{Binding ViewStatisticsCommand}"
                     BackgroundColor="{StaticResource Secondary}"
                     Margin="0, 50,0,0" WidthRequest="150" HorizontalOptions="Start" FontAttributes="Bold"/>
+
+            <Button Text="Recherche de donneur"
+                    Command="{Binding ViewSearchDonneurCommand}"
+                    BackgroundColor="{StaticResource Primary}"
+                    Margin="0, 50,0,0" WidthRequest="200" HorizontalOptions="Start" FontAttributes="Bold"/>
 
             <Grid RowDefinitions="*,Auto,Auto">
                 <CollectionView Grid.Row="0" ItemsSource="{Binding Donneurs}">

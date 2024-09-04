@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="DonsDuSangApp.Views.DonneurSearchPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:local="clr-namespace:DonsDuSangApp"
+    xmlns:vm="clr-namespace:DonsDuSangApp.ViewModels"
+    xmlns:m="clr-namespace:DonsDuSangApp.Context.Models;assembly=DonsDuSangApp.Context"
+    Padding="{OnPlatform iOS={StaticResource ApplePadding}, Default={StaticResource DefaultPadding}}"
+    Title="{Binding Title}"
+    x:DataType="vm:DonneurSearchViewModel"
+    mc:Ignorable="d"
+    BackgroundImageSource="{AppThemeBinding Light=lightback.jpg, Dark=darkback.jpg}">
+
+    <ContentPage.Content>
+        <StackLayout Padding="20" Spacing="20">
+            <Label Text="Filtrer par consentement:" FontSize="Medium" FontAttributes="Bold" />
+
+            <!-- Dropdown for Accord pour l'enseignement -->
+            <Picker Title="Accord pour l'enseignement"
+                ItemsSource="{Binding ConsentOptions}"
+                SelectedItem="{Binding SelectedEnseignementOption}" />
+
+            <!-- Dropdown for Accord pour un usage non thérapeutique -->
+            <Picker Title="Accord pour un usage non thérapeutique"
+                ItemsSource="{Binding ConsentOptions}"
+                SelectedItem="{Binding SelectedNonTherapeutiqueOption}" />
+
+            <Button Text="Rechercher"
+                Command="{Binding SearchDonneurCommand}" 
+                BackgroundColor="{StaticResource Primary}" 
+                TextColor="White" />
+
+            <!-- Display search results -->
+            <CollectionView ItemsSource="{Binding Donneurs}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:Donneur">
+                        <ViewCell>
+                            <Label Text="{Binding FullName}" FontSize="Medium" />
+                        </ViewCell>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+
+
+</ContentPage>

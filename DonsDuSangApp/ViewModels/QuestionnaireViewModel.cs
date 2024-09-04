@@ -27,31 +27,26 @@ namespace DonsDuSangApp.ViewModels
             // Clear existing questions to avoid using data from the previous user
             Questions.Clear();
 
-            // Récupère la réponse existante de l'user connecté
+            // Retrieve existing responses of the logged-in user
             var existingResponses = await DbContext.Reponses
                 .Where(r => r.IdDonneur == loggedInDonorId)
                 .ToListAsync();
 
-            // Vérifie si user a une réponse disqualifiante
+            // Check if the user has a disqualifying response
             var disqualifyingResponse = existingResponses.FirstOrDefault(r => r.EstDisqualifié == true);
 
             if (disqualifyingResponse != null)
             {
-                // Demande à l'user de confirmé si sa situation a changer
                 bool situationChanged = await DialogService.DisplayAlertAsync(
                     "Changement de situation",
                     "Lors de votre dernier questionnaire, vous avez été disqualifié. Votre situation a-t-elle changé?",
-                    "Oui",
-                    "Non");
+                    "Oui", "Non");
 
                 if (situationChanged)
                 {
-                    // Efface précédente réponse disqualifiante si la situation a change
                     DbContext.Reponses.RemoveRange(existingResponses.Where(r => r.EstDisqualifié == true));
+                    await DbContext.SaveChangesAsync();
 
-                    await DbContext.SaveChangesAsync(); // Sauvegarde les changements avant de procéder
-
-                    // Refait une récupération aprés l'effacement des réponses disqualifiantes
                     existingResponses = await DbContext.Reponses
                         .Where(r => r.IdDonneur == loggedInDonorId)
                         .ToListAsync();
@@ -64,16 +59,11 @@ namespace DonsDuSangApp.ViewModels
                 }
             }
 
-            // récupére les questions depuis la bdd
-            var questions = await DbContext.Questions
-                .Where(q => q.IdQuestion == 1 || q.IdQuestion == 2 || q.IdQuestion == 3)
-                .ToListAsync();
+            // Load questions from the database
+            var questions = await DbContext.Questions.Take(3).ToListAsync();
 
-            // Remplis la collection des questions avec les modelview Questions
-            Questions.Clear(); // Efface toute question existante pour éviter les doublons.
             foreach (var question in questions)
             {
-                // Trouve la réponse qui correspond si existe
                 var existingResponse = existingResponses.FirstOrDefault(r => r.IdQuestion == question.IdQuestion);
 
                 var questionVm = new QuestionViewModel(DialogService, NavigationService)
@@ -82,14 +72,13 @@ namespace DonsDuSangApp.ViewModels
                     Enonce = question.Enonce,
                     ReponseOptions = new ObservableCollection<string> { "Oui", "Non", "Je ne sais pas" },
                     IsCritique = question.EstCritique ?? false,
-                    SelectedReponse = existingResponse?.Reponse1,  // Charge les réponses précédentes
-                    ComplementTextuel = existingResponse?.ComplementTextuel // Charge les compléments de réponse précédente
+                    SelectedReponse = existingResponse?.Reponse1,
+                    ComplementTextuel = existingResponse?.ComplementTextuel
                 };
 
                 Questions.Add(questionVm);
             }
         }
-
 
         [RelayCommand]
         public async Task SubmitAsync()
@@ -97,13 +86,23 @@ namespace DonsDuSangApp.ViewModels
             try
             {
                 var loggedInDonorId = (short)Preferences.Get("LoggedInDonorId", 0);
+                if (Questions.Count == 0)
+                {
+                    await DialogService.DisplayAlertAsync("Erreur", "Le questionnaire ne peut pas être vide.", "OK");
+                    return;
+                }
 
-                // Determine feasibility of donation based on critical answers
                 bool isDisqualified = false;
                 bool needsInterview = false;
 
                 foreach (var questionVm in Questions)
                 {
+                    if (string.IsNullOrEmpty(questionVm.SelectedReponse))
+                    {
+                        await DialogService.DisplayAlertAsync("Erreur", "Veuillez répondre à toutes les questions.", "OK");
+                        return;
+                    }
+
                     await questionVm.SaveResponseAsync(loggedInDonorId);
 
                     // Check for disqualifying responses
@@ -113,32 +112,27 @@ namespace DonsDuSangApp.ViewModels
                         break;
                     }
 
-                    // If the question needs an interview based on the answer
                     if (questionVm.SelectedReponse == "Je ne sais pas")
                     {
                         needsInterview = true;
                     }
                 }
 
-                // Determine final message
-                string donationMessage;
-                if (isDisqualified)
+                string donationMessage = isDisqualified ? "Don impossible" : needsInterview ? "Dépend de l'entretien" : "Don faisable";
+
+                // Store interview requirement in the database
+                var questionnaire = await DbContext.Questionnaires
+                    .FirstOrDefaultAsync(q => q.IdDonneur == loggedInDonorId);
+
+                if (questionnaire != null)
                 {
-                    donationMessage = "Don impossible";
-                }
-                else if (needsInterview)
-                {
-                    donationMessage = "Dépend de l'entretien";
-                }
-                else
-                {
-                    donationMessage = "Don faisable";
+                    questionnaire.BesoinEntretient = needsInterview;
+                    await DbContext.SaveChangesAsync();
                 }
 
-                // Show the donation feasibility message
                 await DialogService.DisplayAlertAsync("Résultat", donationMessage, "OK");
 
-                // Navigate to the consent page after feasibility check
+                // Navigate to the consent page
                 await NavigationService.GoToAsync(nameof(ConsentementPage));
             }
             catch (Exception ex)

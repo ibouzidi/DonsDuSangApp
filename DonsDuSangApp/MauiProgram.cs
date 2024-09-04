@@ -48,7 +48,9 @@ namespace DonsDuSangApp
 
             builder.Services.AddTransient<ConsentementViewModel>();
             builder.Services.AddTransient<ConsentementPage>();
-
+            
+            builder.Services.AddTransient<DonneurSearchViewModel>();
+            builder.Services.AddTransient<DonneurSearchPage>();
 
 
 #if DEBUG

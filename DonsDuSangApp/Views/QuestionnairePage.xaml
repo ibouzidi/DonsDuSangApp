@@ -39,7 +39,7 @@
 
                                     <!-- Picker -->
                                     <Picker Grid.Row="1" Grid.Column="1"
-                                            Title="Selectioné une réponse" 
+                                            Title="Sélectionner une réponse" 
                                             ItemsSource="{Binding ReponseOptions}" 
                                             SelectedItem="{Binding SelectedReponse}"
                                             HorizontalOptions="Start" 
