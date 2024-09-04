@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <ContentPage
     x:Class="DonsDuSangApp.Views.AccueilPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -14,47 +13,58 @@
     Padding="{OnPlatform iOS={StaticResource ApplePadding}, Default={StaticResource DefaultPadding}}"
     Title="{Binding Title}"
     x:DataType="vm:AccueilViewModel"
-    mc:Ignorable="d"
-    BackgroundImageSource="{AppThemeBinding Light=lightback.jpg, Dark=darkback.jpg}">
+    mc:Ignorable="d">
+
+    <!-- Removed BackgroundImageSource="{AppThemeBinding Light=lightback.jpg, Dark=darkback.jpg}" -->
 
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,Auto,*,Auto" ColumnDefinitions="*,*">
 
             <!-- Title Section -->
-            <Border Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="Start" Padding="20" Margin="0,20,0,0" StrokeShape="RoundRectangle 40,40,40,40" BackgroundColor="{StaticResource Secondary}">
-                <Label Text="Bienvenue à l'application Don du Sang" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="20" TextColor="White" />
-            </Border>
+            <Grid Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="Start" Padding="10" Margin="0,10,0,0" BackgroundColor="{StaticResource Secondary}">
+                <!-- Title Label -->
+                <Label Grid.Column="0" Text="Bienvenue à l'application Don du Sang" 
+                       HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" 
+                       FontSize="20" TextColor="White" VerticalOptions="Center" />
+
+                <!-- Removed Heart Icon Image -->
+                <!-- <Image Source="heart_icon.png" 
+                       WidthRequest="30" HeightRequest="30" 
+                       HorizontalOptions="End" VerticalOptions="Center"
+                       Margin="0,0,20,0" Aspect="AspectFit"
+                       ZIndex="-1" /> -->
+            </Grid>
 
             <!-- Logo Section -->
             <StackLayout Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,10,0,30">
-                <Image Source="efs_logo.png" MaximumHeightRequest="120" Aspect="AspectFit" />
+                <Image Source="efs_logo.png" MaximumHeightRequest="100" Aspect="AspectFit" />
             </StackLayout>
 
             <!-- Donor Section -->
-            <StackLayout Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
+            <StackLayout Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
                 <Border StrokeShape="RoundRectangle 40,0,0,40" BackgroundColor="{StaticResource Secondary}">
-                    <Image Source="donneur.png" MaximumHeightRequest="150" Aspect="AspectFit" Margin="10"/>
+                    <Image Source="donneur.png" WidthRequest="120" HeightRequest="120" Aspect="AspectFit" Margin="5"/>
                 </Border>
                 <Label Text="Section Donneurs" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold" VerticalOptions="End" />
-                <Button Text="Accéder au questionnaire" HorizontalOptions="Center" Padding="25" Margin="20"
+                <Button Text="Accéder au questionnaire" HorizontalOptions="Center" Padding="20" Margin="10"
                         Command="{Binding AccesQuestionnaireCommand}" 
                         Style="{StaticResource SecondaryAction}">
                     <Button.ImageSource>
-                        <FontImageSource FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.FormTextboxPassword}" Size="26" />
+                        <FontImageSource FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.FormTextboxPassword}" Size="24" />
                     </Button.ImageSource>
                 </Button>
             </StackLayout>
 
             <!-- Doctor Section -->
-            <StackLayout Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
+            <StackLayout Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
                 <Border StrokeShape="RoundRectangle 40,0,0,40" BackgroundColor="{StaticResource Primary}">
-                    <Image Source="docteur.png" MaximumHeightRequest="150" Aspect="AspectFit" Margin="10"/>
+                    <Image Source="docteur.png" WidthRequest="120" HeightRequest="120" Aspect="AspectFit" Margin="5"/>
                 </Border>
                 <Label Text="Section Docteurs" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold" VerticalOptions="End" />
-                <Button Text="Accéder à l'administration" HorizontalOptions="Center" Padding="25" Margin="20"
+                <Button Text="Accéder à l'administration" HorizontalOptions="Center" Padding="20" Margin="10"
                         Style="{StaticResource PrimaryAction}">
                     <Button.ImageSource>
-                        <FontImageSource FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.AccountBadge}" Size="26" />
+                        <FontImageSource FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.AccountBadge}" Size="24" />
                     </Button.ImageSource>
                 </Button>
             </StackLayout>
