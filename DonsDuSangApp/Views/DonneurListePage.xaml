@@ -22,37 +22,43 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Grid RowDefinitions="*,Auto,Auto" Margin="0,50">
-            <CollectionView Grid.Row="0" ItemsSource="{Binding Donneurs}">
-                <CollectionView.Header>
-                    <Grid ColumnDefinitions="2*,2*,*,*" Padding="10,5">
-                        <Label Grid.Column="1" 
-                           Text="{Binding Donneurs.Count, StringFormat='{0:N0} donneurs listés'}"
-                           HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Italic" Padding="5,0,0,0" />
+        <StackLayout>
+            <Button Text="Voir Statistiques"
+                    Command="{Binding ViewStatisticsCommand}"
+                    BackgroundColor="{StaticResource Secondary}"
+                    Margin="0, 50,0,0" WidthRequest="150" HorizontalOptions="Start" FontAttributes="Bold"/>
 
-                        <Label Grid.Column="0" Text="Nom du Donneur" FontAttributes="Bold" HorizontalOptions="Start" Padding="5,0" />
-                        <Label Grid.Column="1" Text="Action" FontAttributes="Bold" HorizontalOptions="End" Padding="5,0" />
+            <Grid RowDefinitions="*,Auto,Auto">
+                <CollectionView Grid.Row="0" ItemsSource="{Binding Donneurs}">
+                    <CollectionView.Header>
+                        <Grid ColumnDefinitions="2*,2*,*,*" Padding="10,5">
+                            <Label Grid.Column="1" 
+                               Text="{Binding Donneurs.Count, StringFormat='{0:N0} donneurs listés'}"
+                               HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Italic" Padding="5,0,0,0" />
 
-                        <BoxView Grid.ColumnSpan="2" HeightRequest="1" VerticalOptions="End" BackgroundColor="Red" />
-                    </Grid>
-                </CollectionView.Header>
+                            <Label Grid.Column="0" Text="Nom du Donneur" FontAttributes="Bold" HorizontalOptions="Start" Padding="5,0" />
+                            <Label Grid.Column="1" Text="Action" FontAttributes="Bold" HorizontalOptions="End" Padding="5,0" />
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:Donneur">
-                        <Grid ColumnDefinitions="2*,2*,*,*" Padding="10,5" RowSpacing="5">
-                            <Label Grid.Column="0" Text="{Binding FullName}" VerticalOptions="Center" HorizontalOptions="Start" />
-                            <Button 
-                            Grid.Column="1" 
-                            Text="Voir Donneur"
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DonneurListeViewModel}}, Path=ViewDetailCommand}"
-                            CommandParameter="{Binding IdDonneur, Converter={StaticResource ShortToIntConverter}}"
-                            HorizontalOptions="End" 
-                            BackgroundColor="{StaticResource Primary}" />
+                            <BoxView Grid.ColumnSpan="2" HeightRequest="1" VerticalOptions="End" BackgroundColor="Red" />
                         </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Grid>
-    </ContentPage.Content>
+                    </CollectionView.Header>
 
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="m:Donneur">
+                            <Grid ColumnDefinitions="2*,2*,*,*" Padding="10,5" RowSpacing="5">
+                                <Label Grid.Column="0" Text="{Binding FullName}" VerticalOptions="Center" HorizontalOptions="Start" />
+                                <Button 
+                                Grid.Column="1" 
+                                Text="Voir Donneur"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DonneurListeViewModel}}, Path=ViewDetailCommand}"
+                                CommandParameter="{Binding IdDonneur, Converter={StaticResource ShortToIntConverter}}"
+                                HorizontalOptions="End" 
+                                BackgroundColor="{StaticResource Primary}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

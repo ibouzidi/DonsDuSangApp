@@ -43,6 +43,9 @@ namespace DonsDuSangApp
             builder.Services.AddTransient<DonneurDetailViewModel>();
             builder.Services.AddTransient<DonneurDetailPage>();
 
+            builder.Services.AddTransient<StatistiquesViewModel>();
+            builder.Services.AddTransient<StatistiquesPage>();
+
 
 
 #if DEBUG

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="DonsDuSangApp.Views.StatistiquesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:DonsDuSangApp"
+    xmlns:helpers="clr-namespace:DonsDuSangApp.Helpers"
+    xmlns:vm="clr-namespace:DonsDuSangApp.ViewModels"
+    xmlns:m="clr-namespace:DonsDuSangApp.Context.Models;assembly=DonsDuSangApp.Context"
+    Padding="{OnPlatform iOS={StaticResource ApplePadding}, Default={StaticResource DefaultPadding}}"
+    Title="{Binding Title}"
+    x:DataType="vm:StatistiquesViewModel"
+    mc:Ignorable="d"
+    BackgroundImageSource="{AppThemeBinding Light=lightback.jpg, Dark=darkback.jpg}">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,Auto,Auto" Margin="0, 50,0,0">
+            <CollectionView Grid.Row="0" ItemsSource="{Binding QuestionsStats}">
+                <CollectionView.Header>
+                    <Grid ColumnDefinitions="2*,2*,*,*">
+                        <Label Grid.Row="1" Text="{Binding QuestionsStats.Count, StringFormat='{0:N0} questions listées'}"
+      HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Italic" Margin="2,0" />
+                        <Label Grid.Column="0" Text="Question" FontAttributes="Bold" TextColor="{StaticResource Secondary}" />
+                        <Label Grid.Column="1" Text="Pourcentage de Oui" FontAttributes="Bold" TextColor="{StaticResource Secondary}" HorizontalOptions="EndAndExpand" />
+                        <BoxView Grid.ColumnSpan="2" HeightRequest="1" VerticalOptions="End" Color="{StaticResource Secondary}" />
+                    </Grid>
+                </CollectionView.Header>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:QuestionStatistique">
+                        <Grid ColumnDefinitions="2*,2*,*,*" Padding="0,5,0,0">
+                            <!-- Question Text -->
+                            <Label Grid.Column="0" Text="{Binding Enonce}" VerticalOptions="Center" />
+
+                            <!-- Pourcentage de Oui -->
+                            <Label Grid.Column="1" Text="{Binding PourcentageOui, StringFormat='{0:F2}%'}" VerticalOptions="Center" HorizontalOptions="EndAndExpand" />
+
+                            <!-- Divider between items -->
+                            <BoxView Grid.ColumnSpan="3" HeightRequest="1" VerticalOptions="End" Color="{StaticResource Gray600}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <!-- Footer -->
+            <Label Grid.Row="3" Grid.ColumnSpan="2" Text="EFS © 2024" HorizontalOptions="Center"
+                   VerticalOptions="End" FontAttributes="Bold" CharacterSpacing="2" HorizontalTextAlignment="Center"
+                   TextColor="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource White}}" Margin="0,0,0,10" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -27,11 +27,16 @@ namespace DonsDuSangApp.ViewModels
             }
         }
 
-        // Command to handle button click
         [RelayCommand]
         private async Task ViewDetailAsync(int donneurId)
         {
             await NavigationService.GoToAsync($"{nameof(DonneurDetailPage)}?donneurId={donneurId}");
+        }
+
+        [RelayCommand]
+        private async Task ViewStatisticsAsync()
+        {
+            await NavigationService.GoToAsync(nameof(StatistiquesPage));
         }
     }
 

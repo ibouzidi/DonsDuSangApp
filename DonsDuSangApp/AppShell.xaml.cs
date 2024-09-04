@@ -23,6 +23,7 @@ namespace DonsDuSangApp
             Routing.RegisterRoute(nameof(MedecinLoginPage), typeof(MedecinLoginPage));
             Routing.RegisterRoute(nameof(DonneurListePage), typeof(DonneurListePage));
             Routing.RegisterRoute(nameof(DonneurDetailPage), typeof(DonneurDetailPage));
+            Routing.RegisterRoute(nameof(StatistiquesPage), typeof(StatistiquesPage));
         }
 
         private void SetInitialRoute()
