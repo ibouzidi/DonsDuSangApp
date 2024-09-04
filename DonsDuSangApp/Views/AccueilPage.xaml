@@ -20,9 +20,11 @@
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,Auto,*,Auto" ColumnDefinitions="*,*">
 
-            <!-- Title Section -->
-            <Border Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="Start" Padding="20" Margin="0,20,0,0" StrokeShape="RoundRectangle 40,40,40,40" BackgroundColor="{StaticResource Secondary}">
-                <Label Text="Bienvenue à l'application Don du Sang" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="20" TextColor="White" />
+            <Border Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="Center" Padding="0,20,0,0" Margin="0,50,0,0" 
+                StrokeShape="RoundRectangle 40,40,40,40" BackgroundColor="{StaticResource Secondary}"
+                WidthRequest="400" HeightRequest="75">
+                <Label Text="Bienvenue à l'application Don du Sang" HorizontalOptions="Center" 
+                   HorizontalTextAlignment="Center" FontSize="20" TextColor="White" />
             </Border>
 
             <!-- Logo Section -->
@@ -30,7 +32,7 @@
                 <Image Source="efs_logo.png" MaximumHeightRequest="120" Aspect="AspectFit" />
             </StackLayout>
 
-            <!-- Donor Section -->
+            <!-- Donneur Section -->
             <StackLayout Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
                 <Border StrokeShape="RoundRectangle 40,0,0,40" BackgroundColor="{StaticResource Secondary}">
                     <Image Source="donneur.png" MaximumHeightRequest="150" Aspect="AspectFit" Margin="10"/>
@@ -45,14 +47,14 @@
                 </Button>
             </StackLayout>
 
-            <!-- Doctor Section -->
+            <!-- Docteurs Section -->
             <StackLayout Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
                 <Border StrokeShape="RoundRectangle 40,0,0,40" BackgroundColor="{StaticResource Primary}">
                     <Image Source="docteur.png" MaximumHeightRequest="150" Aspect="AspectFit" Margin="10"/>
                 </Border>
                 <Label Text="Section Docteurs" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold" VerticalOptions="End" />
                 <Button Text="Accéder à l'administration" HorizontalOptions="Center" Padding="25" Margin="20"
-                        Style="{StaticResource PrimaryAction}">
+                        Style="{StaticResource PrimaryAction}" Command="{Binding AccesMedecinCommand}">
                     <Button.ImageSource>
                         <FontImageSource FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.AccountBadge}" Size="26" />
                     </Button.ImageSource>
@@ -62,7 +64,7 @@
             <!-- Footer -->
             <Label Grid.Row="3" Grid.ColumnSpan="2" Text="Appli développée par EFS." HorizontalOptions="Center"
                    VerticalOptions="End" FontAttributes="Bold" CharacterSpacing="2" HorizontalTextAlignment="Center"
-                   TextColor="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource Gray900}}" Margin="0,0,0,10" />
+                   TextColor="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource White}}" Margin="0,0,0,10" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

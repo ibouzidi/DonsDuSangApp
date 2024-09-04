@@ -1,0 +1,58 @@
+<ContentPage
+    x:Class="DonsDuSangApp.Views.DonneurListePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:DonsDuSangApp.ViewModels"
+    xmlns:helpers="clr-namespace:DonsDuSangApp.Helpers"
+    xmlns:m="clr-namespace:DonsDuSangApp.Context.Models;assembly=DonsDuSangApp.Context"
+    xmlns:converters="clr-namespace:DonsDuSangApp.Converters"
+    Padding="{OnPlatform iOS={StaticResource ApplePadding}, Default={StaticResource DefaultPadding}}"
+    Title="{Binding Title}"
+    x:DataType="vm:DonneurListeViewModel"
+    mc:Ignorable="d"
+    BackgroundImageSource="{AppThemeBinding Light=lightback.jpg, Dark=darkback.jpg}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ShortToIntConverter x:Key="ShortToIntConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,Auto,Auto" Margin="0,50">
+            <CollectionView Grid.Row="0" ItemsSource="{Binding Donneurs}">
+                <CollectionView.Header>
+                    <Grid ColumnDefinitions="2*,2*,*,*" Padding="10,5">
+                        <Label Grid.Column="1" 
+                           Text="{Binding Donneurs.Count, StringFormat='{0:N0} donneurs listés'}"
+                           HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Italic" Padding="5,0,0,0" />
+
+                        <Label Grid.Column="0" Text="Nom du Donneur" FontAttributes="Bold" HorizontalOptions="Start" Padding="5,0" />
+                        <Label Grid.Column="1" Text="Action" FontAttributes="Bold" HorizontalOptions="End" Padding="5,0" />
+
+                        <BoxView Grid.ColumnSpan="2" HeightRequest="1" VerticalOptions="End" BackgroundColor="Red" />
+                    </Grid>
+                </CollectionView.Header>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:Donneur">
+                        <Grid ColumnDefinitions="2*,2*,*,*" Padding="10,5" RowSpacing="5">
+                            <Label Grid.Column="0" Text="{Binding FullName}" VerticalOptions="Center" HorizontalOptions="Start" />
+                            <Button 
+                            Grid.Column="1" 
+                            Text="Voir Donneur"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DonneurListeViewModel}}, Path=ViewDetailCommand}"
+                            CommandParameter="{Binding IdDonneur, Converter={StaticResource ShortToIntConverter}}"
+                            HorizontalOptions="End" 
+                            BackgroundColor="{StaticResource Primary}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>

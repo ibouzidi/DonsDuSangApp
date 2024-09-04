@@ -35,5 +35,15 @@
 
         [RelayCommand]
         private void Quitter() => App.Current!.Quit();
+
+
+        [RelayCommand]
+        private async Task AccesMedecinAsync()
+        {
+            // Navigate to the Medecin Login page
+            await NavigationService.GoToAsync(nameof(MedecinLoginPage));
+        }
+
+
     }
 }

@@ -34,6 +34,16 @@ namespace DonsDuSangApp
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<LoginPage>();
 
+            builder.Services.AddTransient<MedecinLoginViewModel>();
+            builder.Services.AddTransient<MedecinLoginPage>();
+
+            builder.Services.AddTransient<DonneurListeViewModel>();
+            builder.Services.AddTransient<DonneurListePage>();
+
+            builder.Services.AddTransient<DonneurDetailViewModel>();
+            builder.Services.AddTransient<DonneurDetailPage>();
+
+
 
 #if DEBUG
             builder.Logging.AddDebug();

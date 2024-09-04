@@ -31,7 +31,7 @@
                                     <!-- Question Text -->
                                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
                                            Text="{Binding Enonce}" 
-                                           FontSize="Medium" 
+                                           FontSize="Micro" 
                                            FontAttributes="Bold" 
                                            VerticalOptions="Center" 
                                            HorizontalOptions="Start" 
@@ -67,7 +67,15 @@
                         TextColor="White" 
                         Padding="60,20" 
                         FontAttributes="Bold" />
+                
+                <!-- Footer -->
+                <Label Grid.Row="2" Text="EFS © 2024" HorizontalOptions="Center" 
+               VerticalOptions="End" FontAttributes="Bold" 
+               CharacterSpacing="2" HorizontalTextAlignment="Center" 
+               TextColor="White" BackgroundColor="{StaticResource FooterBackgroundColor}" 
+               Padding="10" />
             </StackLayout>
         </ScrollView>
+
     </ContentPage.Content>
 </ContentPage>

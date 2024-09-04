@@ -11,7 +11,6 @@ namespace DonsDuSangApp.ViewModels
         [ObservableProperty]
         private Donneur _donneur = new();
 
-        // Use DateTime to handle DatePicker input, but convert to DateOnly when saving to the database.
         [ObservableProperty]
         private DateTime _dateNaissance = DateTime.Now;
 

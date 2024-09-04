@@ -11,18 +11,29 @@
     Padding="{OnPlatform iOS={StaticResource ApplePadding}, Default={StaticResource DefaultPadding}}"
     Title="Connexion"
     x:DataType="vm:LoginViewModel"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    BackgroundImageSource="{AppThemeBinding Light=lightback.jpg, Dark=darkback.jpg}">
 
-    <ContentPage.Content>
-        <StackLayout Padding="20" Spacing="15">
+    <!-- Overall page layout with margins and footer -->
+    <Grid RowDefinitions="Auto,Auto" Padding="20">
 
-            <Label Text="Connexion Donneur" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+        <!-- Container for the login content (centered and expanded) -->
+        <StackLayout Grid.Row="0" Padding="20" Margin="20" BackgroundColor="White" Spacing="20"
+                     VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
 
-            <Entry Placeholder="Email" Text="{Binding Email}" Keyboard="Email" />
-            <Entry Placeholder="Mot de passe" Text="{Binding Password}" IsPassword="True" />
+            <Label Text="Connexion Donneur" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" TextColor="{StaticResource PrimaryTextColor}" />
 
-            <Button Text="Se connecter" Command="{Binding ConnexionCommand}" Style="{StaticResource PrimaryAction}" />
+            <Entry Placeholder="Email" Text="{Binding Email}" Keyboard="Email" FontSize="18" WidthRequest="250" HorizontalOptions="Center" />
+            <Entry Placeholder="Mot de passe" Text="{Binding Password}" IsPassword="True" FontSize="18" WidthRequest="250" HorizontalOptions="Center" />
+
+            <Button Text="Se connecter" Command="{Binding ConnexionCommand}" Style="{StaticResource PrimaryAction}" FontSize="18" WidthRequest="250" HorizontalOptions="Center" />
 
         </StackLayout>
-    </ContentPage.Content>
+
+        <!-- Footer section at the bottom -->
+        <StackLayout Grid.Row="1" Padding="10" BackgroundColor="{StaticResource FooterBackgroundColor}" HorizontalOptions="FillAndExpand">
+            <Label Text="EFS © 2024" FontSize="14" HorizontalOptions="Center" TextColor="White" />
+        </StackLayout>
+
+    </Grid>
 </ContentPage>
