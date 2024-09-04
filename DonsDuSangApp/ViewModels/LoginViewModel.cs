@@ -29,6 +29,9 @@ namespace DonsDuSangApp.ViewModels
                 return;
             }
 
+            // Clear any previous user data in the DbContext
+            DbContext.ChangeTracker.Clear();
+
             // Mark the user as authenticated and store the donor ID
             Preferences.Set("IsUserAuthenticated", true);
             Preferences.Set("LoggedInDonorId", existingDonneur.IdDonneur); // Storing the logged-in donor's ID

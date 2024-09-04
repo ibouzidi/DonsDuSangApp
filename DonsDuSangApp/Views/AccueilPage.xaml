@@ -21,13 +21,13 @@
         <Grid RowDefinitions="Auto,Auto,*,Auto" ColumnDefinitions="*,*">
 
             <!-- Title Section -->
-            <Border Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="Start" Padding="20" Margin="0,100,0,0" StrokeShape="RoundRectangle 40,40,40,40" BackgroundColor="{StaticResource Secondary}">
-                <Label Text="Bienvenue à l'application Don du Sang" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="26" TextColor="White" />
+            <Border Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="Start" Padding="20" Margin="0,20,0,0" StrokeShape="RoundRectangle 40,40,40,40" BackgroundColor="{StaticResource Secondary}">
+                <Label Text="Bienvenue à l'application Don du Sang" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="20" TextColor="White" />
             </Border>
 
             <!-- Logo Section -->
             <StackLayout Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,10,0,30">
-                <Image Source="efs_logo.png" MaximumHeightRequest="150" Aspect="AspectFit" />
+                <Image Source="efs_logo.png" MaximumHeightRequest="120" Aspect="AspectFit" />
             </StackLayout>
 
             <!-- Donor Section -->
@@ -38,7 +38,7 @@
                 <Label Text="Section Donneurs" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold" VerticalOptions="End" />
                 <Button Text="Accéder au questionnaire" HorizontalOptions="Center" Padding="25" Margin="20"
                         Command="{Binding AccesQuestionnaireCommand}" 
-                        Style="{StaticResource PrimaryAction}">
+                        Style="{StaticResource SecondaryAction}">
                     <Button.ImageSource>
                         <FontImageSource FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.FormTextboxPassword}" Size="26" />
                     </Button.ImageSource>
@@ -52,7 +52,7 @@
                 </Border>
                 <Label Text="Section Docteurs" HorizontalOptions="Center" FontSize="18" FontAttributes="Bold" VerticalOptions="End" />
                 <Button Text="Accéder à l'administration" HorizontalOptions="Center" Padding="25" Margin="20"
-                        Style="{StaticResource SecondaryAction}">
+                        Style="{StaticResource PrimaryAction}">
                     <Button.ImageSource>
                         <FontImageSource FontFamily="MaterialDesignIcons" Glyph="{x:Static helpers:MaterialDesignIcons.AccountBadge}" Size="26" />
                     </Button.ImageSource>

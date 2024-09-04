@@ -35,8 +35,6 @@ public partial class DonsDuSangContext : DbContext
 
             entity.ToTable("Donneur");
 
-            entity.HasIndex(e => e.DateNaissance, "UQ__Donneur__06656525EA811136").IsUnique();
-
             entity.HasIndex(e => e.Email, "UQ__Donneur__AB6E61643BD61C25").IsUnique();
 
             entity.Property(e => e.IdDonneur).HasColumnName("idDonneur");

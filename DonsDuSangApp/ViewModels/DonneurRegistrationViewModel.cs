@@ -11,16 +11,16 @@ namespace DonsDuSangApp.ViewModels
         [ObservableProperty]
         private Donneur _donneur = new();
 
+        // Use DateTime to handle DatePicker input, but convert to DateOnly when saving to the database.
         [ObservableProperty]
-        private string _dateNaissanceStr;
+        private DateTime _dateNaissance = DateTime.Now;
 
         [RelayCommand]
         private async Task InscriptionAsync()
         {
-            // Validation logic
+            // Validate the input fields
             if (string.IsNullOrWhiteSpace(Donneur.Nom) ||
                 string.IsNullOrWhiteSpace(Donneur.Prenom) ||
-                string.IsNullOrWhiteSpace(DateNaissanceStr) ||
                 string.IsNullOrWhiteSpace(Donneur.Email) ||
                 string.IsNullOrWhiteSpace(Donneur.Motdepasse))
             {
@@ -28,23 +28,17 @@ namespace DonsDuSangApp.ViewModels
                 return;
             }
 
-            // Convert date of birth from string to DateOnly
-            if (!DateOnly.TryParse(DateNaissanceStr, out var dateNaissance))
-            {
-                await DialogService.DisplayAlertAsync("Erreur", "La date de naissance est invalide.", "OK");
-                return;
-            }
+            // Convert DateNaissance from DateTime to DateOnly before saving
+            Donneur.DateNaissance = DateOnly.FromDateTime(DateNaissance);
 
-            Donneur.DateNaissance = dateNaissance;
-
-            // Check if the email is already used
+            // Check for an existing account with the same email
             if (await DbContext.Donneurs.AnyAsync(d => d.Email == Donneur.Email))
             {
                 await DialogService.DisplayAlertAsync("Erreur", "Un compte avec cet email existe déjà.", "OK");
                 return;
             }
 
-            // Hash the password before saving
+            // Hash the password
             Donneur.Motdepasse = BCrypt.Net.BCrypt.HashPassword(Donneur.Motdepasse);
 
             // Save the new donor
@@ -53,12 +47,14 @@ namespace DonsDuSangApp.ViewModels
 
             // Mark the user as authenticated
             Preferences.Set("IsUserAuthenticated", true);
+            Preferences.Set("LoggedInDonorId", Donneur.IdDonneur);
 
             await DialogService.DisplayAlertAsync("Succès", "Inscription réussie.", "OK");
 
-            // Navigate to the Questionnaire page
+            // Navigate to the next page
             await NavigationService.GoToAsync(nameof(QuestionnairePage));
         }
+
 
         [RelayCommand]
         private async Task ConnexionAsync()

@@ -23,6 +23,9 @@ namespace DonsDuSangApp.ViewModels
                 return;
             }
 
+            // Clear existing questions to avoid using data from the previous user
+            Questions.Clear();
+
             // Récupère la réponse existante de l'user connecté
             var existingResponses = await DbContext.Reponses
                 .Where(r => r.IdDonneur == loggedInDonorId)

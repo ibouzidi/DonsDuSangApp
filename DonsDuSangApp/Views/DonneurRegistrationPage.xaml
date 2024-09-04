@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <ContentPage
     x:Class="DonsDuSangApp.Views.DonneurRegistrationPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -6,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:local="clr-namespace:DonsDuSangApp"
     xmlns:vm="clr-namespace:DonsDuSangApp.ViewModels"
     Padding="{OnPlatform iOS={StaticResource ApplePadding}, Default={StaticResource DefaultPadding}}"
@@ -14,13 +14,19 @@
     mc:Ignorable="d">
 
     <ContentPage.Content>
-        <StackLayout Padding="20" Spacing="15">
-
+        <StackLayout Spacing="15">
             <Label Text="Inscription Donneur" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
 
             <Entry Placeholder="Nom" Text="{Binding Donneur.Nom}" />
             <Entry Placeholder="Prénom" Text="{Binding Donneur.Prenom}" />
-            <Entry Placeholder="Date de Naissance (YYYY-MM-DD)" Text="{Binding DateNaissanceStr}" Keyboard="Numeric" />
+
+            <Label Text="Date de Naissance" />
+            <DatePicker Date="{Binding DateNaissance}" 
+                        MinimumDate="1900-01-01" 
+                        MaximumDate="{x:Static sys:DateTime.Now}"
+                        Format="dd MMMM yyyy" 
+                        HorizontalOptions="FillAndExpand" />
+
             <Entry Placeholder="Email" Text="{Binding Donneur.Email}" Keyboard="Email" />
             <Entry Placeholder="Mot de passe" Text="{Binding Donneur.Motdepasse}" IsPassword="True" />
 

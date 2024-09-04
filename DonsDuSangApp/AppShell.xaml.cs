@@ -1,4 +1,7 @@
-﻿namespace DonsDuSangApp
+﻿using DonsDuSangApp.Context.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace DonsDuSangApp
 {
     public partial class AppShell : Shell
     {
@@ -38,8 +41,23 @@
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
-            Preferences.Set("IsUserAuthenticated", false); // Handle logout
-            await _navigationService.GoToAsync(nameof(LoginPage)); // Clear navigation stack
+            // Clear the preferences upon logout
+            Preferences.Remove("IsUserAuthenticated");
+            Preferences.Remove("LoggedInDonorId");
+
+            // Optionally, clear the DbContext cached data
+            ClearDbContextCache();
+
+            // Navigate to the login page after logging out
+            await _navigationService.GoToAsync(nameof(LoginPage));
+        }
+
+        public static DonsDuSangContext DbContext { get; set; } = new DonsDuSangContext();
+
+        private void ClearDbContextCache()
+        {
+            // Ensure that the context is reset, or any cached data specific to the previous user is cleared.
+            DbContext.ChangeTracker.Clear(); // This clears tracked entities from the context.
         }
     }
 

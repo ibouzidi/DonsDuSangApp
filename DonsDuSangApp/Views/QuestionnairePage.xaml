@@ -7,25 +7,66 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:vm="clr-namespace:DonsDuSangApp.ViewModels"
-    mc:Ignorable="d">
+    Padding="{OnPlatform iOS={StaticResource ApplePadding}, Default={StaticResource DefaultPadding}}"
+    Title="{Binding Title}"
+    mc:Ignorable="d"
+    BackgroundImageSource="{AppThemeBinding Light=lightback.jpg, Dark=darkback.jpg}">
 
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="20">
-                <ListView ItemsSource="{Binding Questions}">
+                <ListView ItemsSource="{Binding Questions}" HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Spacing="10">
-                                    <Label Text="{Binding Enonce}" FontSize="Medium" />
-                                    <Picker Title="Select a response" ItemsSource="{Binding ReponseOptions}" SelectedItem="{Binding SelectedReponse}" />
-                                    <Entry Placeholder="Add complementary text if needed" Text="{Binding ComplementTextuel}" IsVisible="{Binding IsCritique}" />
-                                </StackLayout>
+                                <Grid Padding="10" RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,Auto,Auto,*">
+                                    <!-- Question Number -->
+                                    <Label Grid.Row="0" Grid.Column="0" 
+                                           Text="{Binding IdQuestion}" 
+                                           FontSize="Large" 
+                                           FontAttributes="Bold" 
+                                           VerticalOptions="Center"
+                                           TextColor="{StaticResource Secondary}" />
+
+                                    <!-- Question Text -->
+                                    <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
+                                           Text="{Binding Enonce}" 
+                                           FontSize="Medium" 
+                                           FontAttributes="Bold" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Start" 
+                                           Margin="0,0,10,0" />
+
+                                    <!-- Picker -->
+                                    <Picker Grid.Row="1" Grid.Column="1"
+                                            Title="Selectioné une réponse" 
+                                            ItemsSource="{Binding ReponseOptions}" 
+                                            SelectedItem="{Binding SelectedReponse}"
+                                            HorizontalOptions="Start" 
+                                            WidthRequest="180" 
+                                            Margin="0,10,10,0" />
+
+                                    <!-- Complementary Information Entry -->
+                                    <Entry Grid.Row="1" Grid.Column="3"
+                                           Placeholder="Complément d'information..." 
+                                           Text="{Binding ComplementTextuel}" 
+                                           IsVisible="{Binding IsCritique}" 
+                                           HorizontalOptions="FillAndExpand" 
+                                           Margin="0,10,0,0" />
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Text="Submit" Command="{Binding SubmitCommand}" VerticalOptions="End" />
+
+                <Button Text="Submit" 
+                        Command="{Binding SubmitCommand}" 
+                        VerticalOptions="CenterAndExpand" 
+                        HorizontalOptions="Center"
+                        BackgroundColor="{StaticResource Secondary}" 
+                        TextColor="White" 
+                        Padding="60,20" 
+                        FontAttributes="Bold" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

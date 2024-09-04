@@ -18,6 +18,7 @@ namespace DonsDuSangApp
                        fonts.AddFont("FontAwesome-Solid900.ttf", "FontAwesomeIcons");
                    });
 
+
             builder.Services.AddSingleton<IDialogService, DialogService>();
             builder.Services.AddSingleton<INavigationService, NavigationService>();
 
