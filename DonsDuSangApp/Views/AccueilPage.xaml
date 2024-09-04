@@ -62,7 +62,7 @@
             </StackLayout>
 
             <!-- Footer -->
-            <Label Grid.Row="3" Grid.ColumnSpan="2" Text="Appli développée par EFS." HorizontalOptions="Center"
+            <Label Grid.Row="3" Grid.ColumnSpan="2" Text="EFS © 2024" HorizontalOptions="Center"
                    VerticalOptions="End" FontAttributes="Bold" CharacterSpacing="2" HorizontalTextAlignment="Center"
                    TextColor="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource White}}" Margin="0,0,0,10" />
         </Grid>
