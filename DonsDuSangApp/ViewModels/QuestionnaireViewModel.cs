@@ -24,15 +24,15 @@ namespace DonsDuSangApp.ViewModels
                 return;
             }
 
-            // Clear existing questions to avoid using data from the previous user
+            // Effacer les questions existantes pour éviter d'utiliser les données de l'utilisateur précédent
             Questions.Clear();
 
-            // Retrieve existing responses of the logged-in user
+            // Récupérer les réponses existantes de l'utilisateur connecté
             var existingResponses = await DbContext.Reponses
                 .Where(r => r.IdDonneur == loggedInDonorId)
                 .ToListAsync();
 
-            // Check if the user has a disqualifying response
+            // Vérifier si l'utilisateur a une réponse disqualifiante
             var disqualifyingResponse = existingResponses.FirstOrDefault(r => r.EstDisqualifié == true);
 
             if (disqualifyingResponse != null)
@@ -59,7 +59,7 @@ namespace DonsDuSangApp.ViewModels
                 }
             }
 
-            // Load questions from the database
+            // Charger les questions de la base de données
             var questions = await DbContext.Questions.Take(3).ToListAsync();
 
             foreach (var question in questions)
@@ -105,7 +105,7 @@ namespace DonsDuSangApp.ViewModels
 
                     await questionVm.SaveResponseAsync(loggedInDonorId);
 
-                    // Check for disqualifying responses
+                    // Vérifie les réponses disqualifiantes
                     if (questionVm.IsCritique && questionVm.SelectedReponse == "Non")
                     {
                         isDisqualified = true;
@@ -120,7 +120,7 @@ namespace DonsDuSangApp.ViewModels
 
                 string donationMessage = isDisqualified ? "Don impossible" : needsInterview ? "Dépend de l'entretien" : "Don faisable";
 
-                // Store interview requirement in the database
+                // Enregistre les exigences de l'entretien dans la base de données
                 var questionnaire = await DbContext.Questionnaires
                     .FirstOrDefaultAsync(q => q.IdDonneur == loggedInDonorId);
 
@@ -132,7 +132,7 @@ namespace DonsDuSangApp.ViewModels
 
                 await DialogService.DisplayAlertAsync("Résultat", donationMessage, "OK");
 
-                // Navigate to the consent page
+                // Redirection à la page de consentement
                 await NavigationService.GoToAsync(nameof(ConsentementPage));
             }
             catch (Exception ex)

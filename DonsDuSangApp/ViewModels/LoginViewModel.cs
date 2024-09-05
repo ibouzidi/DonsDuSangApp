@@ -19,7 +19,7 @@ namespace DonsDuSangApp.ViewModels
         [RelayCommand]
         private async Task ConnexionAsync()
         {
-            // Simple login logic
+            // Logique d'authentification
             var existingDonneur = await DbContext.Donneurs
                 .FirstOrDefaultAsync(d => d.Email == Email);
 
@@ -29,16 +29,16 @@ namespace DonsDuSangApp.ViewModels
                 return;
             }
 
-            // Clear any previous user data in the DbContext
+            // Efface les données utilisateurs
             DbContext.ChangeTracker.Clear();
 
-            // Mark the user as authenticated and store the donor ID
+            // Marque l'utilisateur
             Preferences.Set("IsUserAuthenticated", true);
-            Preferences.Set("LoggedInDonorId", existingDonneur.IdDonneur); // Storing the logged-in donor's ID
+            Preferences.Set("LoggedInDonorId", existingDonneur.IdDonneur); // Enregistre l'ID de l'utilisateur
 
             await DialogService.DisplayAlertAsync("Succès", "Connexion réussie.", "OK");
 
-            // Clear the stack and navigate to the Questionnaire page
+            // Redirection au questionnaire après authentification
             await NavigationService.GoToAsync(nameof(QuestionnairePage));
         }
 

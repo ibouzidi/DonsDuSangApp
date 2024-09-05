@@ -25,7 +25,7 @@ namespace DonsDuSangApp.ViewModels
         {
             var loggedInDonorId = (short)Preferences.Get("LoggedInDonorId", 0);
 
-            // Find the existing questionnaire or create a new one
+            // Trouve le questionnaire existant ou en créer un nouveau
             var questionnaire = await DbContext.Questionnaires
                 .FirstOrDefaultAsync(q => q.IdDonneur == loggedInDonorId);
 

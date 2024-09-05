@@ -45,7 +45,7 @@ public partial class QuestionViewModel : BaseViewModel
                 return;
             }
 
-            // Check for existing response
+            // Vérifie l'existence de la réponse
             var existingResponse = await DbContext.Reponses
                 .FirstOrDefaultAsync(r => r.IdQuestion == IdQuestion && r.IdDonneur == loggedInDonorId);
 

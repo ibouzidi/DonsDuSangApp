@@ -76,6 +76,5 @@
                Padding="10" />
             </StackLayout>
         </ScrollView>
-
     </ContentPage.Content>
 </ContentPage>

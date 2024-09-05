@@ -7,7 +7,7 @@ namespace DonsDuSangApp.ViewModels
     public partial class MedecinLoginViewModel(IDialogService dialogService, INavigationService navigationService)
             : BaseViewModel(dialogService, navigationService)
     {
-        private const string HardcodedPassword = "123"; // Hardcoded shared password
+        private const string HardcodedPassword = "123"; // Mot de passe partagé codé en dur
 
         [ObservableProperty]
         private string _password;
@@ -15,15 +15,15 @@ namespace DonsDuSangApp.ViewModels
         [RelayCommand]
         private async Task LoginAsync()
         {
-            // Check if the entered password matches the hardcoded password
+            // Vérifier si le mot de passe saisi correspond au mot de passe codé en dur
             if (Password == HardcodedPassword)
             {
-                // Navigate to the Donor List page
+                // Navigation à la liste des donneurs
                 await NavigationService.GoToAsync(nameof(DonneurListePage));
             }
             else
             {
-                // Show an error message if the password is incorrect
+                // Afficher un message d'erreur si le mot de passe est incorrect
                 await DialogService.DisplayAlertAsync("Erreur", "Mot de passe incorrect", "OK");
             }
         }

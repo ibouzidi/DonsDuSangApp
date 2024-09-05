@@ -16,7 +16,7 @@ namespace DonsDuSangApp.ViewModels
 
         private async Task LoadStatisticsAsync()
         {
-            // Get all questions from the database
+            // Récupère toutes les questions de la base de données
             var questions = await DbContext.Questions.Include(q => q.Reponses).ToListAsync();
 
             var stats = questions.Select(question => new QuestionStatistique

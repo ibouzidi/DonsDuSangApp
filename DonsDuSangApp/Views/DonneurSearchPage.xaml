@@ -15,37 +15,30 @@
     mc:Ignorable="d"
     BackgroundImageSource="{AppThemeBinding Light=lightback.jpg, Dark=darkback.jpg}">
 
-    <ContentPage.Content>
-        <StackLayout Padding="20" Spacing="20">
-            <Label Text="Filtrer par consentement:" FontSize="Medium" FontAttributes="Bold" />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="PickerStyle" TargetType="Picker">
+                <Setter Property="TitleColor" Value="Gray"/>
+                <Setter Property="Title" Value="Select option"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-            <!-- Dropdown for Accord pour l'enseignement -->
-            <Picker Title="Accord pour l'enseignement"
-                ItemsSource="{Binding ConsentOptions}"
-                SelectedItem="{Binding SelectedEnseignementOption}" />
-
-            <!-- Dropdown for Accord pour un usage non thérapeutique -->
-            <Picker Title="Accord pour un usage non thérapeutique"
-                ItemsSource="{Binding ConsentOptions}"
-                SelectedItem="{Binding SelectedNonTherapeutiqueOption}" />
-
-            <Button Text="Rechercher"
-                Command="{Binding SearchDonneurCommand}" 
-                BackgroundColor="{StaticResource Primary}" 
-                TextColor="White" />
-
-            <!-- Display search results -->
-            <CollectionView ItemsSource="{Binding Donneurs}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:Donneur">
-                        <ViewCell>
-                            <Label Text="{Binding FullName}" FontSize="Medium" />
-                        </ViewCell>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
-    </ContentPage.Content>
+    <StackLayout Padding="20" Spacing="20">
+        <Label Text="Filter par consentement:" FontSize="Medium" FontAttributes="Bold"/>
+        <Picker ItemsSource="{Binding ConsentOptions}" SelectedItem="{Binding SelectedEnseignementOption}" Style="{StaticResource PickerStyle}" Title="Accord pour l'enseignement"/>
+        <Picker ItemsSource="{Binding ConsentOptions}" SelectedItem="{Binding SelectedNonTherapeutiqueOption}" Style="{StaticResource PickerStyle}" Title="Accord pour un usage non thérapeutique"/>
+        <Button Text="Search" Command="{Binding SearchDonneurCommand}" BackgroundColor="Blue" TextColor="White"/>
+        <CollectionView ItemsSource="{Binding Donneurs}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:Donneur">
+                    <StackLayout Padding="10">
+                        <Label Text="{Binding FullName}" FontSize="Medium"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
 
 
 </ContentPage>

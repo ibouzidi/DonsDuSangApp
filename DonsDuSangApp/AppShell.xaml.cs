@@ -7,6 +7,9 @@ namespace DonsDuSangApp
     {
         private readonly INavigationService _navigationService;
 
+        public static DonsDuSangContext DbContext { get; set; } = new DonsDuSangContext();
+
+
         public AppShell(INavigationService navigationService)
         {
             InitializeComponent();
@@ -47,23 +50,22 @@ namespace DonsDuSangApp
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
-            // Clear the preferences upon logout
+            // Efface les préférences après
             Preferences.Remove("IsUserAuthenticated");
             Preferences.Remove("LoggedInDonorId");
 
-            // Optionally, clear the DbContext cached data
+            // Efface les données du DbContext mises en cache.
             ClearDbContextCache();
 
-            // Navigate to the login page after logging out
+            // Navigation à la page login
             await _navigationService.GoToAsync(nameof(LoginPage));
         }
 
-        public static DonsDuSangContext DbContext { get; set; } = new DonsDuSangContext();
 
         private void ClearDbContextCache()
         {
-            // Ensure that the context is reset, or any cached data specific to the previous user is cleared.
-            DbContext.ChangeTracker.Clear(); // This clears tracked entities from the context.
+            // Effacement du context ou cache
+            DbContext.ChangeTracker.Clear();
         }
     }
 

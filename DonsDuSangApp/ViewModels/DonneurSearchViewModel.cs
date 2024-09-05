@@ -3,65 +3,56 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Threading.Tasks;
 
 namespace DonsDuSangApp.ViewModels
 {
     public partial class DonneurSearchViewModel : BaseViewModel
     {
+        public DonneurSearchViewModel(IDialogService dialogService, INavigationService navigationService)
+            : base(dialogService, navigationService)
+        {
+            ConsentOptions = new List<string> { "Oui", "Non" };
+            Donneurs = new ObservableCollection<Donneur>();
+        }
+
         [ObservableProperty]
         private string selectedEnseignementOption;
 
         [ObservableProperty]
         private string selectedNonTherapeutiqueOption;
 
-        public ObservableCollection<Donneur> Donneurs { get; private set; } = new ObservableCollection<Donneur>();
+        public ObservableCollection<Donneur> Donneurs { get; }
 
-        // List of options for consent
-        public List<string> ConsentOptions { get; } = new List<string> { "Oui", "Non" };
+        public List<string> ConsentOptions { get; }
 
-        public DonneurSearchViewModel(IDialogService dialogService, INavigationService navigationService)
-            : base(dialogService, navigationService)
-        {
-        }
-
-        // Command to search for donors based on the selected consent options
         [RelayCommand]
         public async Task SearchDonneurAsync()
         {
-            Donneurs.Clear();
+            bool? enseignement = ConvertOption(SelectedEnseignementOption);
+            bool? nonTherapeutique = ConvertOption(SelectedNonTherapeutiqueOption);
 
-            var query = DbContext.Questionnaires.AsQueryable();
-
-            // Apply filter for AccordEnseignement
-            if (SelectedEnseignementOption == "Oui")
-            {
-                query = query.Where(q => q.AccordEnseignement == true);
-            }
-            else if (SelectedEnseignementOption == "Non")
-            {
-                query = query.Where(q => q.AccordEnseignement == false);
-            }
-
-            // Apply filter for AccordNonTherapeutique
-            if (SelectedNonTherapeutiqueOption == "Oui")
-            {
-                query = query.Where(q => q.AccordNonTherapeutique == true);
-            }
-            else if (SelectedNonTherapeutiqueOption == "Non")
-            {
-                query = query.Where(q => q.AccordNonTherapeutique == false);
-            }
-
-            // Retrieve matching donors and add them to the collection
-            var donors = await query
-                .Include(q => q.IdDonneurNavigation) // Ensure that we load the related Donneur data
+            var donors = await DbContext.Questionnaires
+                .Where(q => enseignement == null || q.AccordEnseignement == enseignement)
+                .Where(q => nonTherapeutique == null || q.AccordNonTherapeutique == nonTherapeutique)
                 .Select(q => q.IdDonneurNavigation)
                 .ToListAsync();
 
+            Donneurs.Clear();
             foreach (var donor in donors)
             {
                 Donneurs.Add(donor);
             }
+        }
+
+        private bool? ConvertOption(string option)
+        {
+            return option switch
+            {
+                "Oui" => true,
+                "Non" => false,
+                _ => null
+            };
         }
     }
 }

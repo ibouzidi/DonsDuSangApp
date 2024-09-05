@@ -18,7 +18,7 @@ namespace DonsDuSangApp.ViewModels
         {
             var donneurs = await DbContext.Donneurs
                     .Include(d => d.Reponses)
-                    .Where(d => d.Reponses.Any()) // Only fetch donors with at least one response
+                    .Where(d => d.Reponses.Any()) // Ne rechercher que les donateurs ayant au moins une réponse
                     .ToListAsync();
 
             foreach (var donneur in donneurs)

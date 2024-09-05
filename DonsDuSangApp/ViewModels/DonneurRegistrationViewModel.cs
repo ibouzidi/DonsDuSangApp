@@ -14,69 +14,64 @@ namespace DonsDuSangApp.ViewModels
         private Donneur _donneur = new();
 
         [ObservableProperty]
-        private string _dateNaissance;  // UI binding for birthdate as a string
+        private string _dateNaissance;
 
-        // Command for registration
+        // Inscription
         [RelayCommand]
         private async Task InscriptionAsync()
         {
-            // Ensure the date of birth is valid and the donor is at least 18 years old
+            // S'assurer que la date de naissance est valide et que le donneur est âgé d'au moins 18 ans.
             if (!DateTime.TryParse(_dateNaissance, out DateTime dateNaissance) || !EstMajeur(dateNaissance))
             {
                 await DialogService.DisplayAlertAsync("Erreur", "Vous devez avoir au moins 18 ans pour vous inscrire.", "OK");
                 return;
             }
 
-            // Validation for last name
             if (string.IsNullOrWhiteSpace(Donneur.Nom) || !IsNameValid(Donneur.Nom))
             {
                 await DialogService.DisplayAlertAsync("Erreur", "Le nom doit être valide et ne contenir que des lettres et des espaces.", "OK");
                 return;
             }
 
-            // Validation for first name
             if (string.IsNullOrWhiteSpace(Donneur.Prenom) || !IsNameValid(Donneur.Prenom))
             {
                 await DialogService.DisplayAlertAsync("Erreur", "Le prénom doit être valide et ne contenir que des lettres et des espaces.", "OK");
                 return;
             }
 
-            // Validation for email
             if (string.IsNullOrWhiteSpace(Donneur.Email) || !IsEmailValid(Donneur.Email))
             {
                 await DialogService.DisplayAlertAsync("Erreur", "L'adresse email n'est pas valide.", "OK");
                 return;
             }
 
-            // Validation for password
             if (string.IsNullOrWhiteSpace(Donneur.Motdepasse) || !IsPasswordValid(Donneur.Motdepasse))
             {
                 await DialogService.DisplayAlertAsync("Erreur", "Le mot de passe doit contenir au moins 6 caractères, dont une lettre, un chiffre et un caractère spécial.", "OK");
                 return;
             }
 
-            // Check if the email is already used
             if (await DbContext.Donneurs.AnyAsync(d => d.Email == Donneur.Email))
             {
                 await DialogService.DisplayAlertAsync("Erreur", "Un compte avec cet email existe déjà.", "OK");
                 return;
             }
 
-            // Hash the password before saving
+            // Hash le mot de passe
             Donneur.Motdepasse = BCrypt.Net.BCrypt.HashPassword(Donneur.Motdepasse);
 
-            // Save the new donor with birthdate
+            // Enregistre le donneur avec sa date de naissance
             Donneur.DateNaissance = DateOnly.FromDateTime(dateNaissance);
             await DbContext.Donneurs.AddAsync(Donneur);
             await DbContext.SaveChangesAsync();
 
-            // Mark the user as authenticated
+            // Marque l'utilisateur comme étant connecté
             Preferences.Set("IsUserAuthenticated", true);
             Preferences.Set("LoggedInDonorId", Donneur.IdDonneur);
 
             await DialogService.DisplayAlertAsync("Succès", "Inscription réussie.", "OK");
 
-            // Navigate to the questionnaire page
+            // Redirection au questionnaire après inscription réussie
             await NavigationService.GoToAsync(nameof(QuestionnairePage));
         }
 
@@ -84,41 +79,41 @@ namespace DonsDuSangApp.ViewModels
         [RelayCommand]
         private async Task ConnexionAsync()
         {
-            await NavigationService.GoToAsync(nameof(LoginPage));  // Navigate to LoginPage
+            await NavigationService.GoToAsync(nameof(LoginPage));
         }
 
         // Password validation method
         private static bool IsPasswordValid(string password)
         {
             if (password.Length < 6) return false;
-            if (!Regex.IsMatch(password, @"[A-Za-z]")) return false;  // At least one letter
-            if (!Regex.IsMatch(password, @"\d")) return false;  // At least one digit
-            if (!Regex.IsMatch(password, @"[\W_]")) return false;  // At least one special character
+            if (!Regex.IsMatch(password, @"[A-Za-z]")) return false;  // Au moins une lettre
+            if (!Regex.IsMatch(password, @"\d")) return false;  //  Au moins un chiffre
+            if (!Regex.IsMatch(password, @"[\W_]")) return false;  // Au moins un caractère spéciale
             return true;
         }
 
-        // Email validation method
+        // Validation de l'adresse email
         private static bool IsEmailValid(string email)
         {
             return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
         }
 
-        // Name validation method
+        // Validation sur le nom
         private static bool IsNameValid(string name)
         {
-            return Regex.IsMatch(name, @"^[A-Za-z\s]+$");  // Only letters and spaces
+            return Regex.IsMatch(name, @"^[A-Za-z\s]+$");  // Seulement lettre et espace
         }
 
-        // Check if the donor is of legal age
+        // Vérification de l'age du donneur (>=18)
         private static bool EstMajeur(DateTime dateNaissance)
         {
             var today = DateTime.Today;
             var age = today.Year - dateNaissance.Year;
-            if (dateNaissance > today.AddYears(-age)) age--;  // If birthday hasn't happened yet
+            if (dateNaissance > today.AddYears(-age)) age--;  // Si l'anniversaire n'a pas encore eu lieu
             return age >= 18;
         }
 
-        // Date parsing method
+        // Traitement de la date (format)
         private static bool TryParseDate(string dateString, out DateTime date)
         {
             var cultureInfo = CultureInfo.InvariantCulture;

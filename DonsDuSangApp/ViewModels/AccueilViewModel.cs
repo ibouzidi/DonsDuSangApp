@@ -8,15 +8,7 @@
         public AccueilViewModel(IDialogService dialogService, INavigationService navigationService)
             : base(dialogService, navigationService)
         {
-            // Initialize Nombre with a default value or fetch it from a service
-            LoadNombreAsync();
-        }
 
-        private async Task LoadNombreAsync()
-        {
-            // Simulate fetching the number of donors from a data source
-            // Replace this with your actual data-fetching logic
-            Nombre = await Task.FromResult(1234); // Example value, replace with actual logic
         }
 
         [RelayCommand]
@@ -40,7 +32,7 @@
         [RelayCommand]
         private async Task AccesMedecinAsync()
         {
-            // Navigate to the Medecin Login page
+            // Accéder à la page de connexion du Medecin
             await NavigationService.GoToAsync(nameof(MedecinLoginPage));
         }
 
